@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Image Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .slider {
+            width: 90%;
+            max-width: 800px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slides img {
+            width: 100%;
+            border-radius: 10px;
+            transform: scale(0.8);
+            transition: transform 0.5s;
+        }
+        .slides img.active {
+            transform: scale(1);
+        }
+        .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .slider {
+                width: 100%;
+            }
+            .nav button {
+                padding: 5px;
+                font-size: 16px;
+            }
+            .caption {
+                font-size: 14px;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="C:\Users\ADMIN\Pictures\image1.jpg" alt="Delicious Pizza" class="active">
+            <img src="C:\Users\ADMIN\Pictures\image2.jpg" alt="Tasty Burger">
+            <img src="C:\Users\ADMIN\Pictures\image3.jpg" alt="Sweet Dessert">
+        </div>
+        <div class="caption">Delicious Pizza - A Slice of Happiness</div>
+        <div class="nav">
+            <button id="prev">&#10094;</button>
+            <button id="next">&#10095;</button>
+        </div>
+    </div>
+    <script>
+        const slides = document.querySelectorAll('.slides img');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        const caption = document.querySelector('.caption');
+        let index = 0;
+        const captions = [
+            "Delicious Pizza - A Slice of Happiness",
+            "Tasty Burger - Juicy and Irresistible",
+            "Sweet Dessert - Indulge in Every Bite"
+        ];
+
+        function showSlide(idx) {
+            slides.forEach(img => img.classList.remove('active'));
+            index = (idx + slides.length) % slides.length;
+            slides[index].classList.add('active');
+            caption.textContent = captions[index];
+        }
+
+        prevBtn.addEventListener('click', () => showSlide(index - 1));
+        nextBtn.addEventListener('click', () => showSlide(index + 1));
+    </script>
+</body>
+</html>
